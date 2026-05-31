@@ -1,0 +1,355 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>thầy bạch</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #08080a;
+            color: #eeeeee;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #111116;
+            padding: 20px;
+            text-align: center;
+            font-size: 26px;
+            color: #ff3333;
+            font-weight: bold;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.15);
+            text-transform: uppercase;
+        }
+
+            .header span {
+                color: #ffffff;
+            }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .video-box {
+            text-align: center;
+            position: relative;
+            width: 100%;
+            height: 560px;
+            background: #000;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+        }
+
+            .video-box img {
+                width: 100%;
+                height: 100%;
+                display: block;
+                object-fit: contain;
+            }
+
+        .content-section {
+            background: #111116;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 0, 0, 0.05);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
+        }
+
+            .content-section h2 {
+                color: #ff3333;
+                margin-bottom: 20px;
+                font-size: 20px;
+                border-left: 4px solid #ff3333;
+                padding-left: 12px;
+                letter-spacing: 0.5px;
+                text-transform: uppercase;
+            }
+
+        .ep-list {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .ep {
+            background: #171721;
+            color: #cccccc;
+            border: 1px solid #2a2a38;
+            padding: 10px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: 0.3s ease;
+        }
+
+            .ep:hover {
+                background: #ff3333;
+                color: white;
+                border-color: #ff3333;
+                box-shadow: 0 0 15px rgba(255, 51, 51, 0.5);
+                transform: translateY(-2px);
+            }
+
+            .ep.active {
+                background: linear-gradient(45deg, #b30000, #ff3333);
+                color: white;
+                border-color: #ff3333;
+                box-shadow: 0 0 15px rgba(255, 51, 51, 0.6);
+            }
+
+        .info-grid {
+            display: flex;
+            gap: 25px;
+        }
+
+        .info-poster {
+            width: 200px;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-text {
+            flex: 1;
+        }
+
+            .info-text h3 {
+                font-size: 24px;
+                margin-bottom: 15px;
+                color: #fff;
+            }
+
+        .meta-list {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+            .meta-list li {
+                margin-bottom: 8px;
+                font-size: 15px;
+            }
+
+            .meta-list strong {
+                color: #ff3333;
+            }
+
+        .synopsis {
+            font-size: 15px;
+            color: #b3b3b3;
+            text-align: justify;
+        }
+
+        .comment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .comment-input {
+            width: 100%;
+            background: #171721;
+            border: 1px solid #2a2a38;
+            border-radius: 8px;
+            padding: 15px;
+            color: white;
+            font-family: inherit;
+            font-size: 15px;
+            outline: none;
+            resize: none;
+            transition: 0.3s;
+        }
+
+            .comment-input:focus {
+                border-color: #ff3333;
+                box-shadow: 0 0 10px rgba(255, 51, 51, 0.3);
+            }
+
+        .comment-btn {
+            align-self: flex-end;
+            background: linear-gradient(45deg, #b30000, #ff3333);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+            .comment-btn:hover {
+                box-shadow: 0 0 15px rgba(255, 51, 51, 0.5);
+                transform: translateY(-2px);
+            }
+
+        .comment-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .comment-item {
+            background: #171721;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #ff3333;
+        }
+
+        .comment-user {
+            font-weight: bold;
+            color: #fff;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .comment-time {
+            font-size: 12px;
+            color: #777788;
+            margin-left: 10px;
+            font-weight: normal;
+        }
+
+        .comment-text {
+            font-size: 14px;
+            color: #cccccc;
+        }
+
+        .back-btn {
+            display: inline-block;
+            align-self: flex-start;
+            padding: 10px 24px;
+            background: transparent;
+            color: #ff3333;
+            border: 1px solid #ff3333;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            transition: 0.3s ease;
+        }
+
+            .back-btn:hover {
+                background: #ff3333;
+                color: white;
+                box-shadow: 0 0 15px rgba(255, 51, 51, 0.5);
+                transform: translateX(-5px);
+            }
+
+        @media (max-width: 768px) {
+            .info-grid {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .video-box {
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">STEAL<span>PHIM</span></div>
+
+    <div class="container">
+        <div class="video-box">
+            <img id="player" src="video1.jpg" alt="">
+        </div>
+
+        <div class="content-section">
+            <h2>Danh sách tập</h2>
+            <div class="ep-list">
+                <div class="ep active" onclick="playVideo('video1.jpg', this)">Tập 1</div>
+                <div class="ep" onclick="playVideo('video2.jpg', this)">Tập 2</div>
+                <div class="ep" onclick="playVideo('video3.jpg', this)">Tập 3</div>
+                <div class="ep" onclick="playVideo('video2.jpg', this)">Tập 4</div>
+                <div class="ep" onclick="playVideo('video3.jpg', this)">Tập 5</div>
+                <div class="ep" onclick="playVideo('video2.jpg', this)">Tập 6</div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Thông tin phim</h2>
+            <div class="info-grid">
+                <img class="info-poster" src="https://imgs.search.brave.com/VACAhGxjctOsQXpWjoSf3k7w2oa78s6AGMwFigrcCDE/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL00v/TVY1Qk16VTVaR1l6/Tm1RdE1UZGhZeTAw/T0dSaUxUZzBObVF0/WWpWak56bGlaVGcx/WkdFNFhrRXlYa0Zx/Y0djQC5qcGc" alt="Poster Romcom">
+                <div class="info-text">
+                    <h3>Breaking Bad</h3>
+                    <ul class="meta-list">
+                        <li><strong>Trạng thái:</strong> Hoàn thành (6 Tập)</li>
+                        <li><strong>Thể loại:</strong> Action, Drama</li>
+                        <li><strong>Thời lượng:</strong> 45 phút</li>
+                    </ul>
+                    <p class="synopsis">
+                        Breaking Bad là bộ phim truyền hình xoay quanh Walter White, một giáo viên hóa học trung học sống ở Albuquerque, người được chẩn đoán mắc ung thư phổi di căn.  Để đảm bảo tương lai tài chính cho gia đình (vợ Skyler, con trai Walter Jr. bị liệt và con gái Holly mới sinh) sau khi mình qua đời, ông quyết định dùng kiến thức hóa học của mình để chế biến và bán ma túy đá (methamphetamine) chất lượng cao.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>Bình luận</h2>
+            <div class="comment-form">
+                <textarea class="comment-input" id="commentText" rows="3" placeholder="Nhập bình luận của bạn tại đây..."></textarea>
+                <button class="comment-btn" onclick="addComment()">Gửi bình luận</button>
+            </div>
+            <div class="comment-list" id="commentList">
+                <div class="comment-item">
+                    <div class="comment-user">2senbird <span class="comment-time">1 ngày trước</span></div>
+                    <div class="comment-text">Bộ này thành gvien hóa đến nơi r:))</div>
+                </div>
+            </div>
+        </div>
+
+        <a href="animeweb.html" class="back-btn">⬅ Quay lại trang chủ</a>
+    </div>
+
+    <script>
+        function playVideo(imageUrl, element) {
+            const player = document.getElementById('player');
+            player.src = imageUrl; // Đổi đường dẫn nguồn ảnh hiển thị
+
+            const allEpisodes = document.querySelectorAll('.ep');
+            allEpisodes.forEach(ep => ep.classList.remove('active'));
+            if (element) {
+                element.classList.add('active');
+            }
+        }
+
+        function addComment() {
+            const commentInput = document.getElementById('commentText');
+            const commentText = commentInput.value.trim();
+            if (commentText === '') return;
+
+            const commentList = document.getElementById('commentList');
+            const commentItem = document.createElement('div');
+            commentItem.className = 'comment-item';
+
+            commentItem.innerHTML = `
+                                        <div class="comment-user">Người dùng ẩn danh <span class="comment-time">Vừa xong</span></div>
+                                        <div class="comment-text">${commentText}</div>
+                                    `;
+
+            commentList.insertBefore(commentItem, commentList.firstChild);
+            commentInput.value = '';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,490 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phimsteal - Xem Online</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #08080a; /* Nền tối sâu đồng bộ từ index.html */
+            color: white;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s ease;
+        }
+
+        /* --- THANH HEADER --- */
+        header {
+            background: #111116;
+            padding: 0 5%;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.15);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            height: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+            height: 100%;
+            align-items: center;
+        }
+
+            .nav-links > li {
+                height: 100%;
+                display: flex;
+                align-items: center;
+                position: relative;
+            }
+
+                /* Chữ trên menu chính */
+                .nav-links > li > a {
+                    font-weight: 600;
+                    font-size: 15px;
+                    letter-spacing: 0.5px;
+                    color: #eeeeee;
+                    transition: 0.3s;
+                }
+
+                .nav-links > li:hover > a {
+                    color: #ff3333;
+                }
+
+        /* --- MEGA MENU THỂ LOẠI NỀN ĐEN --- */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content.mega-menu {
+            display: none !important;
+            position: absolute;
+            top: 100%;
+            left: -20px;
+            background: #111116;
+            min-width: 500px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(255, 0, 0, 0.2);
+            border-radius: 0 0 8px 8px;
+            border-top: 3px solid #ff3333;
+            border-left: 1px solid rgba(255, 0, 0, 0.08);
+            border-right: 1px solid rgba(255, 0, 0, 0.08);
+            border-bottom: 1px solid rgba(255, 0, 0, 0.08);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .dropdown:hover .dropdown-content.mega-menu {
+            display: grid !important;
+        }
+
+        .menu-column {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+            /* Chữ trong bảng thể loại */
+            .menu-column a {
+                color: #cccccc;
+                font-size: 14px;
+                font-weight: 500;
+                padding: 4px 0;
+                transition: 0.2s ease;
+            }
+
+                .menu-column a:hover {
+                    color: #ff3333;
+                    padding-left: 5px;
+                }
+
+        /* --- LOGO --- */
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff3333;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+            .logo span {
+                color: #ffffff;
+            }
+
+        /* --- Ô TÌM KIẾM --- */
+        .search-box {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid #2a2a38;
+            background: #171721;
+            color: white;
+            outline: none;
+            width: 200px;
+            transition: 0.3s;
+        }
+
+            .search-box:focus {
+                border-color: #ff3333;
+                box-shadow: 0 0 10px rgba(255, 51, 51, 0.5);
+            }
+
+        /* --- NÚT ĐĂNG XUẤT --- */
+        .logout-btn {
+            background: #111116;
+            color: #ff3333;
+            border: 1px solid #ff3333;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s ease;
+        }
+
+            .logout-btn:hover {
+                background: #ff3333;
+                color: white;
+                box-shadow: 0 0 15px rgba(255, 51, 51, 0.6);
+            }
+
+        /* --- PHẦN HERO BANNER --- */
+        .hero {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(to right, rgba(8,8,10,1), rgba(8,8,10,0.2)), url('https://vnreview.vn/attachments/1753010876299-png.63757/') center/cover;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+        }
+
+        .hero-content h2 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            color: #ff3333;
+            text-shadow: 0 0 15px rgba(255, 51, 51, 0.3);
+        }
+
+        .btn-watch {
+            display: inline-block;
+            background: linear-gradient(45deg, #b30000, #ff3333);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
+            transition: 0.3s;
+        }
+
+            .btn-watch:hover {
+                opacity: 0.95;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(255, 0, 0, 0.6);
+            }
+
+        /* --- DANH SÁCH ANIME --- */
+        .main-content {
+            padding: 40px 5%;
+        }
+
+        .section-title {
+            margin-bottom: 25px;
+            border-left: 5px solid #ff3333;
+            padding-left: 15px;
+            font-size: 22px;
+            letter-spacing: 0.5px;
+        }
+
+        .anime-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 25px;
+        }
+
+        .anime-card {
+            background: #111116;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: 0.4s;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+            .anime-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 10px 25px rgba(255, 0, 0, 0.25);
+                border-color: rgba(255, 51, 51, 0.2);
+            }
+
+            .anime-card img {
+                width: 100%;
+                height: 270px;
+                object-fit: cover;
+            }
+
+        .episode-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff3333;
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(255, 0, 0, 0.3);
+        }
+
+        .anime-info {
+            padding: 15px;
+            text-align: center;
+        }
+
+            .anime-info h3 {
+                font-size: 16px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+        .hidden {
+            display: none !important;
+        }
+
+        footer {
+            background: #111116;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            color: #666677;
+            border-top: 1px solid #2a2a38;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-left">
+            <a href="login.html" class="logout-btn">Đăng xuất</a>
+
+            <nav>
+                <ul class="nav-links">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-trigger">THỂ LOẠI</a>
+                        <div class="dropdown-content mega-menu">
+                            <div class="menu-column">
+                                <a href="#" onclick="filterGenre('all')">Tất cả</a>
+                                <a href="#" onclick="filterGenre('hanhdong')">Action</a>
+                                <a href="#" onclick="filterGenre('hoathinh')">Cartoon</a>
+                                <a href="#" onclick="filterGenre('langman')">Romance</a>
+                                <a href="#" onclick="filterGenre('Harem')">Harem</a>
+                            </div>
+                            <div class="menu-column">
+                                <a href="#" onclick="filterGenre('phieuluu')">Adventure</a>
+                                <a href="#" onclick="filterGenre('hocduong')">School Life</a>
+                                <a href="#" onclick="filterGenre('quy')">Demons</a>
+                                <a href="#" onclick="filterGenre('giatuong')">Fantasy</a>
+                                <a href="#" onclick="filterGenre('lichsu')">Historical</a>
+                            </div>
+                            <div class="menu-column">
+                                <a href="#" onclick="filterGenre('Gay')">Boys Love</a>
+                                <a href="#" onclick="filterGenre('haikich')">Comedy</a>
+                                <a href="#" onclick="filterGenre('Drama')">Drama</a>
+                                <a href="#" onclick="filterGenre('Game')">Game</a>
+                                <a href="#" onclick="filterGenre('kinhdi')">Horror</a>
+                            </div>
+                        </div>
+                    </li>
+                    <li><a href="#">SEASON</a></li>
+                    <li><a href="#">THƯ VIỆN</a></li>
+                    <li><a href="#">LỊCH CHIẾU</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="logo-container">
+            <a href="#" onclick="filterGenre('all')">
+                <div class="logo">PHIM<span>STEAL</span></div>
+            </a>
+        </div>
+
+        <input type="text" id="searchInput" class="search-box" placeholder="Tìm kiếm anime...">
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Demon Slayer: <br>Hashira Training Arc</h2>
+            <p>Sát Quỷ Đội bắt đầu cuộc huấn luyện khắc nghiệt...</p>
+            <a href="sankid.html" class="btn-watch">XEM NGAY</a>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <h2 class="section-title">MỚI CẬP NHẬT</h2>
+
+        <div class="anime-grid" id="animeGrid">
+            <div class="anime-card" data-genre="all hanhdong phieuluu" data-title="One Piece">
+                <a href="onepiece.html">
+                    <span class="episode-tag">1157/1159 Tập</span>
+                    <img src="https://tse4.mm.bing.net/th/id/OIP.I6VJkYdZIA89cpcLipCx3wHaLH?rs=1&pid=ImgDetMain&o=7&rm=3" alt="One Piece">
+                    <div class="anime-info"><h3>One Piece</h3></div>
+                </a>
+            </div>
+
+            <div class="anime-card" data-genre="all hanhdong kinhdi" data-title="Chainsaw Man">
+                <a href="chainsawman.html">
+                    <span class="episode-tag">Movie</span>
+                    <img src="https://iguov8nhvyobj.vcdn.cloud/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/3/5/350x495-csm.jpg" alt="Chainsaw Man">
+                    <div class="anime-info"><h3>Chainsaw Man</h3></div>
+                </a>
+            </div>
+
+            <div class="anime-card" data-genre="all hanhdong giatuong" data-title="Jujust Kaisen">
+                <a href="jjks.html">
+                    <span class="episode-tag">Movie</span>
+                    <img src="https://th.bing.com/th/id/R.3cee2dcc405c4750cdaea55e195120b9?rik=7QFQq%2fUzTbgAUA&pid=ImgRaw&r=0" alt="Jujust Kaisen">
+                    <div class="anime-info"><h3>Jujust Kaisen</h3></div>
+                </a>
+            </div>
+
+            <div class="anime-card" data-genre="all hanhdong Phiêu lưu giatuong" data-title="Naruto Shippuden">
+                <a href="naruto.html">
+                    <span class="episode-tag">479/500 Tập</span>
+                    <img src="https://tse3.mm.bing.net/th/id/OIP.dyqxTgooz_3tK-KTXdq-zQHaLH?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Naruto">
+                    <div class="anime-info"><h3>Naruto Shippuden</h3></div>
+                </a>
+            </div>
+
+            <div class="anime-card" data-genre="all hanhdong giatuong" data-title="Dragon Ball Super">
+                <a href="dgb.html">
+                    <span class="episode-tag">Movie</span>
+                    <img src="https://upload.wikimedia.org/wikipedia/vi/4/4f/Dragon_Ball_Super_artwork.jpg" alt="Dragon Ball Super">
+                    <div class="anime-info"><h3>Dragon Ball Super</h3></div>
+                </a>
+            </div>
+
+            <div class="anime-card" data-genre="all kinhdi hanhdong Drama" data-title="Tokyo ghoul">
+                <a href="tokyo.html">
+                    <span class="episode-tag">12/12 Tập</span>
+                    <img src="https://m.media-amazon.com/images/I/61qD0JwKjCL._AC_UF1000,1000_QL80_.jpg" alt="Tokyo ghoul">
+                    <div class="anime-info"><h3>Tokyo ghoul</h3></div>
+                </a>
+            </div>
+
+            <div class="anime-card" data-genre="all hanhdong Drama" data-title="Breaking Bad">
+                <a href="breaking.html">
+                    <span class="episode-tag">6 Phần</span>
+                    <img src="https://m.media-amazon.com/images/I/81CblaI0DuL._AC_UF894,1000_QL80_.jpg" alt="Breaking Bad">
+                    <div class="anime-info"><h3>Breaking Bad</h3></div>
+                </a>
+            </div>
+
+            <div class="anime-card" data-genre="all kinhdi" data-title="Mưa đỏ">
+                <a href="muado.html">
+                    <span class="episode-tag">Movie</span>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhkMnZf3CNQlO_m16Zm_X1_OCFlqieZ7S8mg&s" alt="Mưa đỏ">
+                    <div class="anime-info"><h3>Mưa đỏ</h3></div>
+                </a>
+            </div>
+
+            <div class="anime-card" data-genre="all kinhdi haikich quy" data-title="Hanako">
+                <a href="hanako.html">
+                    <span class="episode-tag">36/36 Tập</span>
+                    <img src="https://m.media-amazon.com/images/M/MV5BM2MzMGRlN2QtM2FhMS00Y2FhLWE4MTEtMGNiZTU5YTdiY2JiXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="hanoko">
+                    <div class="anime-info"><h3>'Cậu' Ma Nhà Xí Hanako</h3></div>
+                </a>
+            </div>
+
+            <div class="anime-card" data-genre="all langman haikich hocduong" data-title="Ngôn ngữ yêu thương">
+                <a href="romcom.html">
+                    <span class="episode-tag">12/12 Tập</span>
+                    <img src="https://images.danet.vn/images/src/b17/bb6/5b3e669412d4eb42614b4d80a045f050.jpg" alt="romcom">
+                    <div class="anime-info"><h3>Ngôn ngữ yêu thương</h3></div>
+                </a>
+            </div>
+
+            <div class="anime-card" data-genre="all hanhdong haikich giatuong" data-title="Bleach">
+                <a href="bleach.html">
+                    <span class="episode-tag">12/366 Tập</span>
+                    <img src="https://upload.wikimedia.org/wikipedia/en/7/72/Bleachanime.png" alt="Bleach">
+                    <div class="anime-info"><h3>Bleach</h3></div>
+                </a>
+            </div>
+
+            <div class="anime-card" data-genre="all kinhdi haikich giatuong" data-title="Soul Eater">
+                <a href="soul.html">
+                    <span class="episode-tag">6/17 Tập</span>
+                    <img src="https://m.media-amazon.com/images/M/MV5BNTJiOWM5NGMtZTdhYi00MmY3LTlhZGYtMjMwYTk2MTI4NGJlXkEyXkFqcGc@._V1_.jpg" alt="soul">
+                    <div class="anime-info"><h3>Soul Eater</h3></div>
+                </a>
+            </div>
+
+            <div class="anime-card" data-genre="all kinhdi Drama Game" data-title="Death Note">
+                <a href="death.html">
+                    <span class="episode-tag">12/37 Tập</span>
+                    <img src="https://m.media-amazon.com/images/M/MV5BYTgyZDhmMTEtZDFhNi00MTc4LTg3NjUtYWJlNGE5Mzk2NzMxXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Death Note">
+                    <div class="anime-info"><h3>Death Note</h3></div>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p> 2026 PhimSteal - Dự án học tập lập trình Web </p>
+    </footer>
+
+    <script>
+        function filterGenre(genre) {
+            // Ngăn trình duyệt tự động cuộn trang lên đầu khi nhấn liên kết
+            if (window.event) window.event.preventDefault();
+
+            const cards = document.querySelectorAll('.anime-card');
+            cards.forEach(card => {
+                const cardGenre = card.getAttribute('data-genre');
+
+                // Kiểm tra nếu chọn xem tất cả ('all') hoặc thuộc tính data-genre có chứa thể loại cần tìm
+                if (genre === 'all' || (cardGenre && cardGenre.includes(genre))) {
+                    card.classList.remove('hidden'); // Hiển thị phim
+                } else {
+                    card.classList.add('hidden'); // Ẩn phim không thuộc nhóm
+                }
+            });
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const searchValue = this.value.toLowerCase();
+            const cards = document.querySelectorAll('.anime-card');
+
+            cards.forEach(card => {
+                const title = card.getAttribute('data-title').toLowerCase();
+                if (title.includes(searchValue)) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
